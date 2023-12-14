@@ -28,7 +28,7 @@ def show_afterparty_form():
     """Show event search form"""
 
     return render_template('search-form.html')
-
+# 'https://app.ticketmaster.com/discovery/v2/events?apikey=GLViNLksmehVXQKJCkgtVF6bXqLnF581'
 
 @app.route('/afterparty/search')
 def find_afterparties():
@@ -45,17 +45,30 @@ def find_afterparties():
     payload = {'apikey': API_KEY}
 
     # TODO: Make a request to the Event Search endpoint to search for events
-    #
+    res = requests.get(url, params = payload)
     # - Use form data from the user to populate any search parameters
-    #
+        #return the data collected on html page
+    # keyword = request.args.get("keyword")
+    # zipcode = request.args.get("zipcode")
+    # radius = request.args.get("radius")
+
     # - Make sure to save the JSON data from the response to the `data`
     #   variable so that it can display on the page. This is useful for
     #   debugging purposes!
-    #
+        #from the variables pulled from the args - we need to add the to data below
+
+    event_data = res.json()
+
+    print(event_data)
+    
+
+    event_results = event_data['events']
+    
     # - Replace the empty list in `events` with the list of events from your
     #   search results
 
-    data = {'Test': ['This is just some test data'],
+
+    data = {'keyword': [keyword],
             'page': {'totalElements': 1}}
     events = []
 
